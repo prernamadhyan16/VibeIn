@@ -17,9 +17,9 @@ const PrivateRoute = ({children}) => {
 
 const AuthRoute = ({children}) => {
   const {userInfo} = useAppStore();
-  const isAuthenticated = !!userInfo;
-  return isAuthenticated ?  <Navigate to = "/chat"/> : children 
-};
+  const isAuthenticated = !userInfo;
+  return isAuthenticated ?  <Navigate to = "/chat"/> : children;
+}
 
 
 const App = () => {
@@ -59,20 +59,21 @@ const App = () => {
     <BrowserRouter>
     <Routes>
       <Route path="/auth" element = {
-        <AuthRoute>
-          <Auth/>
-        </AuthRoute>
-      }></Route>
+          <AuthRoute>
+            <Auth/>
+          </AuthRoute>
+        }
+      />
       <Route path="/chat" element = {
         <PrivateRoute>
           <Chat/>
         </PrivateRoute>
-      }></Route>
+      }/>
       <Route path="/profile" element = {
         <PrivateRoute>
           <Profile/>
         </PrivateRoute>
-      }></Route>
+      }/>
       <Route path="*" element = {<Navigate to="/auth" />}>
       </Route>
 

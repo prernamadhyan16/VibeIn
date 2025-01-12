@@ -56,9 +56,10 @@ const Auth = () =>{
 
             if(response.data.user.id){
                 console.log("1")
-                setUserInfo(response.data.user)
-                if(response.data.user.profileSetup) navigate('/chat')
-                    else navigate("/profile");
+                setUserInfo({"email" : response.data.user.email})
+                if(response.data.user.profileSetup) 
+                    navigate('/chat')
+                else navigate("/profile");
             }
             console.log("1")
             console.log({ response });

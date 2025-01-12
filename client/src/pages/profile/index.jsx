@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { colors, getColor } from "@/lib/utils";
 import { toast } from "sonner";
 import { apiClient } from "@/lib/api-client";
-import { UPDATE_PROFILE_ROUTE, ADD_PROFILE_IMAGE_ROUTE } from "@/utils/constants";
+import { UPDATE_PROFILE_ROUTE, ADD_PROFILE_IMAGE_ROUTE, HOST, REMOVE_PROFILE_IMAGE_ROUTE } from "@/utils/constants";
 
 
 
@@ -29,6 +29,10 @@ const Profile = () =>{
             setFirstName(userInfo.firstName);
             setLastName(userInfo.lastName);
             setSelectedColor(userInfo.color);
+            
+        }
+        if(userInfo.image){
+            setImage(`${HOST}/${userInfo.image}`)
         }
     }, [userInfo]);
 
@@ -83,17 +87,18 @@ const Profile = () =>{
         if(file){
             
             const formData = new FormData();
+            formData.append("profile-image", file);
             const response = await apiClient.post(ADD_PROFILE_IMAGE_ROUTE, 
-                formData, { withCredentials:true })
+                formData,{
+                    headers:{
+                        "Content-Type":"multipart/form-data"
+                    }, withCredentials:true })
             // console.log(response.data.image)
+
             if(response.status === 200 && response.data.image){
                 setUserInfo({...userInfo, image: response.data.image})
                 toast.success("Image Updated Successfully!");
             }
-
-
-
-
             // const reader = new FileReader();
             // reader.onload = () => {
             //     setImage(reader.result);
@@ -102,10 +107,22 @@ const Profile = () =>{
         }
     };
 
-    const handleDeleteImage = async () => {};
+    const handleDeleteImage = async () => {
+        try{
+            const response = await apiClient.delete(REMOVE_PROFILE_IMAGE_ROUTE, {withCredentials:true});
+            if(response.status===200){
+                setUserInfo({...userInfo, image: null});
+                toast.success("Image removed Successfully");
+                setImage(null);
+            }
+        }catch(error){
+            console.log(error)
+        }
+    };
 
     return (
-        <div className="bg-[#1b1c24] h-[100vh] flex items-center flex-col gap-10">
+        <div className="bg-[#1b1c24] h-[10
+        0vh] flex items-center flex-col gap-10">
             <div className="flex flex-col gap-10 w-[80vw] md:w-max">
                 <div onClick={handleNavigate}>
                     <IoArrowBack className="text-4xl lg:text-6xl text-white/90 cursor-pointer"/>

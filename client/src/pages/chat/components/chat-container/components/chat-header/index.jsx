@@ -16,7 +16,8 @@ const ChatHeader = () => {
                         <Avatar className="h-10 w-10 rounded-full overflow-hidden">
                             {selectedChatData.image ? (
                                 <AvatarImage 
-                                src={`${HOST}/${selectedChatData.image}`} alt="profile" 
+                                src={`${HOST}/${selectedChatData.image}`} 
+                                alt="profile" 
                                 className="object-cover w-full h-full bg-black"/>
                             ):(
                                 <div className={`uppercase h-32 w-32 md:w-48 md:h-48 text-lg border-[1px] flex items-center justify-center ${getColor(selectedChatData.color) }`}>

@@ -16,7 +16,7 @@ const MessageBar = () => {
         setMessage((msg) => msg + emoji.emoji)
     }
     const handleSendMessage = async () => {
-        if(selectedChatType === "Contact"){
+        if(selectedChatType === "contact"){
             socket.emit("sendMessage", {
                 sender: userInfo.id,
                 content: message,

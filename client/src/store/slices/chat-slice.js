@@ -11,24 +11,28 @@ export const createChatSlice = (set, get) => ({
             selectedChatMessages: [],
         }),
         addMessage: (message) => {
-            const selectedChatMessages = get().selectedChatMessages;
+            const selectedChatMessages = get().selectedChatMessages || [];
             const selectedChatType = get().selectedChatType;
-
-            set({
-                selectedChatMessages:[
-                    ...selectedChatMessages,{
-                        ...message,
-                        recipient: 
-                            selectedChatType === "channel" 
-                            ? message.recipient 
-                            : message.recipient._id,
-                        sender: 
-                            selectedChatType === "channel" 
-                            ? message.sender 
-                            : message.sender._id
-
-                    }
-                ]
-            })
+          
+            console.log("Existing selectedChatMessages before append:", selectedChatMessages);
+          
+            const updatedMessages = [
+              ...selectedChatMessages,
+              {
+                ...message,
+                recipient: 
+                  selectedChatType === "channel"
+                    ? message.recipient
+                    : message.recipient._id,
+                sender: 
+                  selectedChatType === "channel"
+                    ? message.sender
+                    : message.sender._id,
+              },
+            ];
+          
+            set({ selectedChatMessages: updatedMessages });
+          
+            console.log("Updated selectedChatMessages (pending state update):", updatedMessages);
         }
 });

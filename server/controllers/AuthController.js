@@ -81,7 +81,6 @@ export const login = async (request, response, next)=>{
     }
 };
 
-
 export const getUserInfo = async (request, response, next)=>{
     try{
         const userData = await User.findById(request.userId);
@@ -113,8 +112,6 @@ export const updateProfile = async (request, response, next)=>{
         if(!firstName || !lastName ){
             return response.status(400).send("Please fill the details!");
         }
-
-
         const userData = await User.findByIdAndUpdate(userId, {
             firstName,
             lastName, 
@@ -138,8 +135,6 @@ export const updateProfile = async (request, response, next)=>{
         return response.status(500).send("Internal Server Error");
     }
 };
-
-
 
 export const addProfileImage = async (request, response, next)=>{
     try{
@@ -165,8 +160,6 @@ export const addProfileImage = async (request, response, next)=>{
     }
 };
 
-
-
 export const removeProfileImage = async (request, response, next)=>{
     try{
         const { userId } = request;
@@ -183,6 +176,21 @@ export const removeProfileImage = async (request, response, next)=>{
     }catch(error){
         console.log({error});
         
+        return response.status(500).send("Internal Server Error");
+    }
+};
+
+export const logout = async (request, response) => {
+    try {
+        response.cookie("jwt", "", {
+            maxAge: 1, 
+            secure: true, 
+            sameSite: "None" 
+        });
+        console.log("hello3")
+        return response.status(200).send("Logout Successful.");
+    } catch (error) {
+        console.error({ error });
         return response.status(500).send("Internal Server Error");
     }
 };

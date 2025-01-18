@@ -15,6 +15,7 @@ const ContactsContainer = () => {
         const response = await apiClient.get(GET_DM_CONTACTS_ROUTES, {
           withCredentials: true,
         });
+        // console.log("here we are in contactContainer");
         console.log(response.data);
         if (response.data.contacts) {
           setDirectMessagesContacts(response.data.contacts);

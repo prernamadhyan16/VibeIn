@@ -26,7 +26,7 @@ const MessageContainer = () => {
                     {id : selectedChatData._id},
                     { withCredentials: true }
                 );
-                console.log(response.data)
+                // console.log(response.data)
                 if(response.data){
                     
                     setSelectedChatMessages(response.data);

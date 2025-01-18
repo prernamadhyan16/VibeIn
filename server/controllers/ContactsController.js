@@ -6,14 +6,14 @@ export const getContactsForDMList = async (request, response, next) => {
     try {
         let { userId } = request;
         userId = new mongoose.Types.ObjectId(userId);
-
+        console.log();
         const contacts = await Message.aggregate([
             {
                 $match : {
                     $or: [{ sender: userId }, { recipient: userId }],
                 },
             },{
-                $sort: { timestamp : 1 },
+                $sort: { timestamp : -1 },
             },{
                 $group: {
                     _id:{
@@ -35,7 +35,7 @@ export const getContactsForDMList = async (request, response, next) => {
                 },
             },
             {
-                $unwind : "$contactInfo "
+                $unwind : "$contactInfo"
             },
             {
                 $project : {
@@ -83,7 +83,7 @@ export const searchContacts = async (request, response, next) => {
                 },
             ],
         });
-
+        // console.log(contacts);
         return response.status(200).json({ contacts });
 
         return response.status(200).send("Logout Successful.");

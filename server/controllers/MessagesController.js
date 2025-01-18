@@ -17,7 +17,7 @@ export const getMessages = async (request, response, next) => {
 
             ]
         }).sort({ timestamp:1 })
-        console.log({message})
+        // console.log({message})
         return response.status(200).json({ message });
 
         

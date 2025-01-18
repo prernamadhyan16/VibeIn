@@ -12,7 +12,13 @@ const MessageBar = () => {
   const emojiRef = useRef();
   const fileInputRef = useRef();
   const socket = useSocket();
-  const { selectedChatType, selectedChatData, userInfo } = useAppStore();
+  const { 
+    selectedChatType, 
+    selectedChatData, 
+    userInfo,
+    setIsUploading,
+    setFileUploadProgress, 
+  } = useAppStore();
   const [message, setMessage] = useState("");
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
 
@@ -27,7 +33,7 @@ const MessageBar = () => {
         content: message,
         recipient: selectedChatData._id,
         messageType: "text",
-        fileUrl: undefined, // Corrected from fireUrl
+        fileUrl: undefined,
       });
       setMessage("");
     }
@@ -54,32 +60,35 @@ const MessageBar = () => {
   const handleAttachmentChange = async (event) => {
     try {
       const file = event.target.files[0];
-      // console.log("File Details:", file);
-      if(file){
+      if (file) {
         const formData = new FormData();
         formData.append("file", file);
+        setIsUploading(true);
         const response = await apiClient.post(UPLOAD_FILE_ROUTE, formData, {
-            withCredentials: true,
+          headers:{
+            "Content-Type":"multipart/form-data"
+        },
+          withCredentials: true,
+          onUploadProgress: data => {setFileUploadProgress(Math.round((100 * data.loaded)/data.total))},
         });
         console.log("Response:", response);
 
-
-
-        if(response.status === 200 && response.data) {
-            if(selectedChatType === "contact"){
-                socket.emit("sendMessage", {
-                    sender: userInfo.id,
-                    content: undefined,
-                    recipient: selectedChatData._id,
-                    messageType: "file",
-                    fileUrl: response.data.filePath,
-                });
-            }
+        if (response.status === 200 && response.data) {
+          setIsUploading(false);
+          if (selectedChatType === "contact") {
+            socket.emit("sendMessage", {
+              sender: userInfo.id,
+              content: undefined,
+              recipient: selectedChatData._id,
+              messageType: "file",
+              fileUrl: response.data.filePath,
+            });
+          }
         }
-
       }
       console.log({ file });
     } catch (error) {
+      setIsUploading(false);
       console.log({ error });
     }
   };
@@ -138,3 +147,4 @@ const MessageBar = () => {
 };
 
 export default MessageBar;
+

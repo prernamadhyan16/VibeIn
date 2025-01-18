@@ -52,7 +52,7 @@ export const getContactsForDMList = async (request, response, next) => {
                 $sort : { lastMessageTime: -1 },
             },
         ]);
-
+        console.log(" this contact-list is working");
         return response.status(200).json({ contacts });
 
         return response.status(200).send("Logout Successful.");

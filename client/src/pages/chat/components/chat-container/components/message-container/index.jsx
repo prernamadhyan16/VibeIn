@@ -64,6 +64,8 @@ const MessageContainer = () => {
     }
 
     const renderDMMessages = (message) => {
+        console.log("lol");
+        console.log({message});
         return (
             <div
                 className={`${

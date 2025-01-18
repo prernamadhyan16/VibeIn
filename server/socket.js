@@ -54,7 +54,7 @@ const setupSocket = (server) => {
             console.log("User ID not provided during connection.")
         }
         socket.on("sendMessage", sendMessage)
-        socket.on("disconnect", ()=>disconnect(socket))
+        socket.on("disconnect", () => disconnect(socket))
     })
 }
 

@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
 import User from "../models/UserModel.js";
-
+import Message from "../models/MessagesModel.js"
 
 export const getContactsForDMList = async (request, response, next) => {
     try {
         let { userId } = request;
         userId = new mongoose.Types.ObjectId(userId);
 
-        const contacts = await MessageChannel.aggregate([
+        const contacts = await Message.aggregate([
             {
                 $match : {
                     $or: [{ sender: userId }, { recipient: userId }],
                 },
             },{
-                $sort: { timestamp : -1 },
+                $sort: { timestamp : 1 },
             },{
                 $group: {
                     _id:{

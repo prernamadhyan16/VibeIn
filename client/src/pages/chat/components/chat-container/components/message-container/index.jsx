@@ -4,7 +4,10 @@ import { GET_ALL_MESSAGES_ROUTE } from "@/utils/constants";
 import moment from "moment";
 import { useEffect } from "react";
 import { useRef } from "react";
+
+
 const MessageContainer = () => {
+    // console.log("message container called")
     const scrollRef = useRef();
     const { 
         selectedChatType, 
@@ -12,17 +15,23 @@ const MessageContainer = () => {
         userInfo, 
         selectedChatMessages,
         setSelectedChatMessages,
-    } = useAppStore();
+    } = useAppStore(); 
     
     useEffect(() => {
         const getMessages = async () => {
+            console.log("getMessage called")
             try{
+                console.log("getMessage called 2")
                 const response = await apiClient.post(GET_ALL_MESSAGES_ROUTE,
                     {id : selectedChatData._id},
                     { withCredentials: true }
                 );
-                if(response.data.messages){
-                    setSelectedChatMessages(response.data.messages);
+                console.log(response.data)
+                if(response.data){
+                    
+                    setSelectedChatMessages(response.data);
+                    console.log("yahi h :")
+                    console.log(selectedChatMessages);
                 }
             } catch (error) {
                 console.log({error})
@@ -45,6 +54,7 @@ const MessageContainer = () => {
     }, [selectedChatMessages])
     
     const renderMessages = () => {
+        console.log("render Message working")
         let lastDate = null;
         return selectedChatMessages.map((message, index)=> {
             const messageDate = moment(message.timestamp).format("YYYY-MM-DD");
@@ -64,8 +74,9 @@ const MessageContainer = () => {
     }
 
     const renderDMMessages = (message) => {
-        console.log("lol");
-        console.log({message});
+        // console.log("lol ---");
+        // console.log({message});
+        // console.log("renderDM");
         return (
             <div
                 className={`${
@@ -93,7 +104,7 @@ const MessageContainer = () => {
     
     return (
         <div className="flex-1 overflow-y-auto scrollbar-hidden p-4 px-8 md:w-[65vw] lg:w-[70vw] xl:w-[80vw] w-full">
-            { renderMessages }
+            { renderMessages() }
             <div ref={scrollRef}></div>
         </div>
     )

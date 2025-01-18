@@ -30,7 +30,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/contacts", contactsRoutes)
-app.use("/api/messeges", messagesRoutes);
+app.use("/api/messages", messagesRoutes);
 
 const server = app.listen(port, ()=>{
     console.log(`Server is running at http://localhost:${port}`)

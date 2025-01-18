@@ -2,7 +2,7 @@ import Message from "../models/MessagesModel.js";
 
 export const getMessages = async (request, response, next) => {
     try {
-        
+        console.log("getMessages responding");
         const user1 = request.userId;
         const user2 = request.body.id;
 
@@ -16,8 +16,9 @@ export const getMessages = async (request, response, next) => {
                 { sender: user2, recipient: user1 },
 
             ]
-        }).sort({ timestamp })
-        return response.status(200).json({ contacts });
+        }).sort({ timestamp:1 })
+        console.log({message})
+        return response.status(200).json({ message });
 
         
     } catch (error) {
@@ -25,3 +26,4 @@ export const getMessages = async (request, response, next) => {
         return response.status(500).send("Internal Server Error1");
     }
 };
+

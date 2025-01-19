@@ -176,11 +176,18 @@ VibeIn/
 ## Screenshots
 Add screenshots of the project here to showcase the user interface, such as:
 - Login/Signup Page
+  
   ![image](https://github.com/user-attachments/assets/806b16e4-a3f9-4385-9f92-b90548356abf)
-- Chat Dashboard
-- Group Chat Interface
-- Notifications
+- Profile Setup
 
+  ![Screenshot (7)](https://github.com/user-attachments/assets/1d537d09-91f5-4936-bfe5-07f053b44b8a)
+- Chat DM
+
+  ![Screenshot (3)](https://github.com/user-attachments/assets/8e611f3e-ce44-4a15-a39a-e6fa0ec8fcda)
+- Creating Channel with multiple Users
+
+  ![Screenshot (4)](https://github.com/user-attachments/assets/ad624d21-4e73-4443-8b9c-631243488d0d)
+  
 ---
 
 ## Contributing

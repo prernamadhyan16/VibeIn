@@ -4,10 +4,12 @@ import User from "../models/UserModel.js";
 
 export const createChannel = async (request, response, next) => {
   try {
+    console.log("Before userFindById")
+    
     console.log({ request });
     const { name, members } = request.body;
     const userId = request.userId;
-
+    console.log("Before userFindById")
     const admin = await User.findById(userId);
     console.log(userId);
     if (!admin) {
@@ -51,6 +53,8 @@ export const getUserChannels = async (request, response, next) => {
 
 export const getChannelMessages = async (request, response, next) => {
   try {
+    console.log("Before userFindById")
+    
     const { channelId } = request.params;
     const channel = await Channel.findById(channelId).populate({
       path: "messages",
@@ -66,6 +70,7 @@ export const getChannelMessages = async (request, response, next) => {
     return response.status(201).json({ messages });
   } catch (error) {
     console.log(error);
+    console.log("getChannelMessages error")
     return response.status(500).send("Internal Server Error");
   }
 };

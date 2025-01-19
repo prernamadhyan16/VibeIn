@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { MdFolderZip } from "react-icons/md";
 import { IoMdArrowRoundDown } from "react-icons/io";
 import { HOST } from "@/utils/constants";
-import { AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
+import { IoCloseSharp } from "react-icons/io5";
 
 const MessageContainer = () => {
   const scrollRef = useRef();

@@ -1,4 +1,5 @@
-![image](https://github.com/user-attachments/assets/f03f77e3-db95-49ce-a291-978729ad3b99)# VibeIn: Real-Time Chat Application
+
+# VibeIn: Real-Time Chat Application
 
 VibeIn is a modern real-time chat application that supports individual and group chat functionalities. The application is designed for seamless communication with features like real-time messaging, group management, user authentication, and notifications. 
 

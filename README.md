@@ -190,18 +190,4 @@ Add screenshots of the project here to showcase the user interface, such as:
   
 ---
 
-## Contributing
-1. Fork the repository.
-2. Create a new branch for your feature.
-3. Commit your changes and push to the branch.
-4. Create a pull request for review.
-
----
-
-## License
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
-
----
-
-## Contact
-For any queries or feedback, please reach out via [GitHub Issues](https://github.com/prernamadhyan16/VibeIn/issues).
+## Contributor : Prerna Madhyan

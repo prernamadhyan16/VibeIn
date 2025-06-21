@@ -4,10 +4,12 @@ import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
 import { compare } from "bcrypt";
 import { renameSync, unlinkSync } from "fs"
+import config from "../config.js";
+
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
 const createToken = (email, userId) => {
-    return jwt.sign({email, userId}, process.env.JWT_KEY, { expiresIn: maxAge})
+    return jwt.sign({email, userId}, config.jwtSecret, { expiresIn: config.jwtExpiresIn})
 };
 
 export const signup = async (request, response, next) => {
@@ -138,14 +140,13 @@ export const updateProfile = async (request, response, next)=>{
 
 export const addProfileImage = async (request, response, next)=>{
     try{
-        // console.log(request.file)
         if(!request.file){
-            console.log("Dikat")
+            console.log("File not found in request.")
             return response.status(400).send("File is required!")
         }
 
         const date = Date.now();
-        let fileName = "uploads/profiles" + date + request.file.originalname;
+        let fileName = "uploads/profiles/" + date + request.file.originalname;
         renameSync(request.file.path, fileName);
 
         const updatedUser = await User.findByIdAndUpdate(request.userId, { image:fileName }, { new:true, runValidators:true });

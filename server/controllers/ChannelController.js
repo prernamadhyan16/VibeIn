@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Channel from "../models/ChannelModel.js";
 import User from "../models/UserModel.js";
 
+
 export const createChannel = async (request, response, next) => {
   try {
     console.log("Before userFindById")
@@ -54,8 +55,12 @@ export const getUserChannels = async (request, response, next) => {
 export const getChannelMessages = async (request, response, next) => {
   try {
     console.log("Before userFindById")
-    
+    console.log("channel params: " , request.params)
+    console.log("hello")
     const { channelId } = request.params;
+    // console.log()
+    // console.log("Channel body",channel.response.body)
+    
     const channel = await Channel.findById(channelId).populate({
       path: "messages",
       populate: {
@@ -67,10 +72,10 @@ export const getChannelMessages = async (request, response, next) => {
       return response.status(404).send("Channel not found.");
     }
     const messages = channel.messages;
-    return response.status(201).json({ messages });
+    return response.status(200).json(messages);
   } catch (error) {
     console.log(error);
     console.log("getChannelMessages error")
-    return response.status(500).send("Internal Server Error");
+    return response.status(500).send("Internal Server Error getChannelMessage");
   }
 };

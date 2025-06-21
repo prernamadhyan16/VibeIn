@@ -4,7 +4,7 @@ const messageSchema = new mongoose.Schema({
     sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users",
-        required: true, // Changed "true" (string) to true (boolean)
+        required: true, 
     },
     recipient: {
         type: mongoose.Schema.Types.ObjectId,
@@ -19,13 +19,13 @@ const messageSchema = new mongoose.Schema({
     content: {
         type: String,
         required: function () {
-            return this.messageType === "text"; // Conditionally required
+            return this.messageType === "text"; 
         },
     },
     fileUrl: {
         type: String,
         required: function () {
-            return this.messageType === "file"; // Conditionally required
+            return this.messageType === "file"; 
         },
     },
     timestamp: {
@@ -34,6 +34,6 @@ const messageSchema = new mongoose.Schema({
     },
 });
 
-const Message = mongoose.model("Message", messageSchema);
+const Message = mongoose.model("Messages", messageSchema);
 
 export default Message;
